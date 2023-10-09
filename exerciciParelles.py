@@ -73,6 +73,19 @@ def extract_all_tdata() -> list:
     csv_file.close()
     return players_list
 
+# EXERCICI 2.2 - Nom del jugador amb l'alçada més petita 
+def minheightplayer(basket_players) -> str:
+    nameplayer = ""
+    minheight = float(basket_players[1][3])
+    for row in basket_players:
+        height = float(row[3])
+        if minheight > height:
+            minheight = height
+            nameplayer = row[0]
+    return print("El jugador amb l'alçada més petita és: "+nameplayer)
+
+
+
 # EXERCICI 2.3 - Mitjana de pes i alçada de jugador per equip.
 def average_physics_teams(basket_players) -> dict:
     teams = {}
@@ -86,6 +99,23 @@ def average_physics_teams(basket_players) -> dict:
             teams[row[1]][1].append(float(row[4]))
     return teams
 
+# EXERCICI 2.4 -Recompte de jugadors per posició.
+def playersposition(basket_players):
+    position_dict = dict()
+    for row in basket_players:
+        position = row[2]
+        nameplayer = row[0]
+        if position in position_dict:
+            position_dict[position].append((nameplayer))
+        else:
+            position_dict[position] = [(nameplayer)]
+    print(position_dict)
+    for position, nameplayer in position_dict.items():
+        totalplayers = len(nameplayer)        
+        print(f"Posició: {position}, Jugadors: {totalplayers}")
+
+
+
 # EXERCICI 2.5 - Distribució de jugadors per edat.
 def age_players_count(basket_players)-> dict:
     ages = {}
@@ -98,14 +128,21 @@ def age_players_count(basket_players)-> dict:
 
 basket_players = extract_all_tdata()
 
+minheightplayer(basket_players) # EXERCICI 2.2
+
+
 team_keys = average_physics_teams(basket_players).keys() # EXERCICI 2.3
+
 for i,team in enumerate(average_physics_teams(basket_players).values()):
     print("TEAM: ", list(team_keys)[i])
     print("HEIGHT: ", round(sum(team[0]) / len(team[0]), 2))
     print("WEIGHT: ", round(sum(team[1]) / len(team[1]), 2))
 print("")
 
+playersposition(basket_players) # EXERCICI 2.4
+
 age = age_players_count(basket_players) # EXERCICI 2.5
 print("EDAT | Nº Jugadors")
 for i, a in enumerate(age):
     print(a,"  : ", age[a])
+
