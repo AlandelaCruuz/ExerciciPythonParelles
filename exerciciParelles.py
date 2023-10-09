@@ -28,13 +28,13 @@ def position_dict(word) -> str:
 
 
 # EXERCICI 1.3  -Rep la altura i pes en polzades i retorna una llista amb la altura i pes en Kilos i cm redondejats
-def transformdata(height, weight) -> list:
+def transform_data(height, weight) -> list:
     height = round(float(height)*2.54 , 2)
     weight = round(float(weight)*0.54 , 2)
     return ([height, weight])
 
 # EXERCICI 1.4  -Transfomar les dades relatives a l'edat de decimals a enters
-def transformage(age) -> int:
+def transform_age(age) -> int:
     age = round(float(age))
     return (age)
 
@@ -43,9 +43,9 @@ def print_all_data():
         print(i)
 
         row[2] = position_dict(row[2])
-        row[3] = transformdata(row[3], row[4])[0]
-        row[4] = transformdata(row[3], row[4])[1]
-        row[5] = transformage(row[5])
+        row[3] = transform_data(row[3], row[4])[0]
+        row[4] = transform_data(row[3], row[4])[1]
+        row[5] = transform_age(row[5])
         print(row)
 
 # EXERCICI 1.5  - Rep una llista dels jugadors i la guarda en un nou .CSV amb el delimitador '^' utilitzant un Diccionari
