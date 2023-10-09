@@ -52,7 +52,7 @@ def print_all_data():
 def save_players_list(players_list):
     mydict = {'Nom' : 'x', 'Equip' : 'x', 'Posicio' : 'x', 'Altura' : 'x', 'Pes' : 'x', 'Edat': 'x' }
 
-    with open('jugadorrs_basket.csv', mode='w', newline='') as csv_file:
+    with open('jugadors_basket.csv', mode='w', newline='') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=mydict.keys(), delimiter="^")
             writer.writeheader()
 
@@ -72,6 +72,12 @@ def extract_all_tdata() -> list:
             players_list.append(row)
     csv_file.close()
     return players_list
+
+# EXERCICI 2.1 - Nom del jugador amb el pes més alt.
+def heaviest_player(basket_players) -> str:
+    #find the max value of the weight column just float values
+    player = max(basket_players[1:], key=lambda weight: weight[4])
+    return player
 
 # EXERCICI 2.2 - Nom del jugador amb l'alçada més petita 
 def minheightplayer(basket_players) -> str:
@@ -127,6 +133,8 @@ def age_players_count(basket_players)-> dict:
     return ages
 
 basket_players = extract_all_tdata()
+
+print("MÉS PESAT: ", heaviest_player(basket_players)) # EXERCICI 2.1
 
 minheightplayer(basket_players) # EXERCICI 2.2
 
