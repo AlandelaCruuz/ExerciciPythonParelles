@@ -62,3 +62,50 @@ def save_players_list(players_list):
 basket_players = extract_all_tdata()
 print_all_data()
 save_players_list(basket_players)
+
+# LLEGIR CSV I GUARDAR EN LLISTA
+def extract_all_tdata() -> list:
+    players_list = []
+    with open('jugadors_basket.csv', 'r') as csv_file:
+        reader = csv.reader(csv_file, delimiter="^")
+        for i,row in enumerate(reader):
+            players_list.append(row)
+    csv_file.close()
+    return players_list
+
+# EXERCICI 2.3 - Mitjana de pes i alçada de jugador per equip.
+def average_physics_teams(basket_players) -> dict:
+    teams = {}
+    for row in basket_players[1:]:
+        if row[1] not in teams: #Si el equipo NO esta en el diccionario como LLAVE lo añade junto con una lista de listas como valor
+            teams[row[1]] = [[],[]]
+            teams[row[1]][0].append(float(row[3]))
+            teams[row[1]][1].append(float(row[4]))
+        else:
+            teams[row[1]][0].append(float(row[3]))
+            teams[row[1]][1].append(float(row[4]))
+    return teams
+
+# EXERCICI 2.5 - Distribució de jugadors per edat.
+def age_players_count(basket_players)-> dict:
+    ages = {}
+    for row in basket_players[1:]:
+        if row[5] not in ages:
+            ages[row[5]] = 1
+        else:
+            ages[row[5]] += 1
+    return ages
+
+basket_players = extract_all_tdata()
+
+team_keys = average_physics_teams(basket_players).keys() # EXERCICI 2.3
+for i,team in enumerate(average_physics_teams(basket_players).values()):
+    print("TEAM: ", list(team_keys)[i])
+    print("HEIGHT: ", round(sum(team[0]) / len(team[0]), 2))
+    print("WEIGHT: ", round(sum(team[1]) / len(team[1]), 2))
+print("")
+
+age = age_players_count(basket_players) # EXERCICI 2.5
+print("EDAT | Nº Jugadors")
+for i, a in enumerate(age):
+    print(a,"  : ", age[a])
