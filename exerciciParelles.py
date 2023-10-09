@@ -1,4 +1,5 @@
 import csv
+import json
 
 # EXERCICI 1    -LLegir el .CSV, guardar les dades en una llista de llistes y retornar per funció
 def extract_all_tdata() -> list:
@@ -123,9 +124,9 @@ def age_players_count(basket_players)-> dict:
 
 basket_players = extract_all_tdata()
 
-heaviestplayer(basket_players) # EXERCICI 2.1
+heaviest_player(basket_players) # EXERCICI 2.1
 
-minheightplayer(basket_players) # EXERCICI 2.2
+smallest_player(basket_players) # EXERCICI 2.2
 
 
 team_keys = average_physics_teams(basket_players).keys() # EXERCICI 2.3
