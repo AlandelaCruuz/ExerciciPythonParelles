@@ -60,7 +60,6 @@ def save_players_list(players_list):
                 data = {'Nom' : row[0], 'Equip' : row[1], 'Posicio' : row[2], 'Altura' : row[3], 'Pes' : row[4], 'Edat': row[5] }
                 writer.writerow(data)
 basket_players = extract_all_tdata()
-print_all_data()
 save_players_list(basket_players)
 
 # LLEGIR CSV I GUARDAR EN LLISTA
@@ -83,7 +82,7 @@ def heaviest_player(basket_players) -> str:
 def minheightplayer(basket_players) -> str:
     nameplayer = ""
     minheight = float(basket_players[1][3])
-    for row in basket_players:
+    for row in basket_players[1:]:
         height = float(row[3])
         if minheight > height:
             minheight = height
@@ -154,3 +153,13 @@ print("EDAT | Nº Jugadors")
 for i, a in enumerate(age):
     print(a,"  : ", age[a])
 
+# EXERCICI 3.1 - LLegeix el csv i guarda les dades en un json
+def csv_to_json():
+    with open('jugadors_basket.csv', 'r') as csv_file:
+        reader = csv.DictReader(csv_file, delimiter="^")
+        rows = list(reader)
+    csv_file.close()
+    with open('jugadors_basket.json', 'w') as json_file:
+        json.dump(rows, json_file)
+    json_file.close()
+csv_to_json()
