@@ -72,29 +72,15 @@ def extract_all_tdata() -> list:
     csv_file.close()
     return players_list
 
-# EXERCICI 2.1 - Nom del jugador amb el pes més alt
-def heaviestplayer(basket_players) -> str:
-    name_player = ""
-    max_weight = float(basket_players[1][4])
-    for row in basket_players:
-        weight = float(row[4])
-        if max_weight < weight:
-            max_weight = weight
-            name_player = row[0]
-    return print("El jugador amb el pes més alt és: "+name_player)
+# EXERCICI 2.1 - Nom del jugador amb el pes més alt.
+def heaviest_player(basket_players) -> str:
+    player = max(basket_players[1:], key=lambda weight: float(weight[4]))
+    return player
 
-
-
-# EXERCICI 2.2 - Nom del jugador amb l'alçada més petita 
-def minheightplayer(basket_players) -> str:
-    nameplayer = ""
-    minheight = float(basket_players[1][3])
-    for row in basket_players[1:]:
-        height = float(row[3])
-        if minheight > height:
-            minheight = height
-            nameplayer = row[0]
-    return print("El jugador amb l'alçada més petita és: "+nameplayer)
+# EXERCICI 2.2 - Nom del jugador amb l’alçada més petita.
+def smallest_player(basket_players) -> str:
+    player = min(basket_players[1:], key=lambda heigh: heigh[3])
+    return player
 
 
 
