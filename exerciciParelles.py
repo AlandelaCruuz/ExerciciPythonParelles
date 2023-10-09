@@ -72,11 +72,18 @@ def extract_all_tdata() -> list:
     csv_file.close()
     return players_list
 
-# EXERCICI 2.1 - Nom del jugador amb el pes més alt.
-def heaviest_player(basket_players) -> str:
-    #find the max value of the weight column just float values
-    player = max(basket_players[1:], key=lambda weight: weight[4])
-    return player
+# EXERCICI 2.1 - Nom del jugador amb el pes més alt
+def heaviestplayer(basket_players) -> str:
+    name_player = ""
+    max_weight = float(basket_players[1][4])
+    for row in basket_players:
+        weight = float(row[4])
+        if max_weight < weight:
+            max_weight = weight
+            name_player = row[0]
+    return print("El jugador amb el pes més alt és: "+name_player)
+
+
 
 # EXERCICI 2.2 - Nom del jugador amb l'alçada més petita 
 def minheightplayer(basket_players) -> str:
@@ -105,19 +112,14 @@ def average_physics_teams(basket_players) -> dict:
     return teams
 
 # EXERCICI 2.4 -Recompte de jugadors per posició.
-def playersposition(basket_players):
-    position_dict = dict()
-    for row in basket_players:
-        position = row[2]
-        nameplayer = row[0]
-        if position in position_dict:
-            position_dict[position].append((nameplayer))
+def positions_players_count(basket_players)-> dict:
+    positions = {}
+    for row in basket_players[1:]:
+        if row[2] not in positions:
+            positions[row[2]] = 1
         else:
-            position_dict[position] = [(nameplayer)]
-    print(position_dict)
-    for position, nameplayer in position_dict.items():
-        totalplayers = len(nameplayer)        
-        print(f"Posició: {position}, Jugadors: {totalplayers}")
+            positions[row[2]] += 1
+    return positions
 
 
 
@@ -131,9 +133,11 @@ def age_players_count(basket_players)-> dict:
             ages[row[5]] += 1
     return ages
 
+
+
 basket_players = extract_all_tdata()
 
-print("MÉS PESAT: ", heaviest_player(basket_players)) # EXERCICI 2.1
+heaviestplayer(basket_players) # EXERCICI 2.1
 
 minheightplayer(basket_players) # EXERCICI 2.2
 
@@ -146,7 +150,7 @@ for i,team in enumerate(average_physics_teams(basket_players).values()):
     print("WEIGHT: ", round(sum(team[1]) / len(team[1]), 2))
 print("")
 
-playersposition(basket_players) # EXERCICI 2.4
+positions_players_count(basket_players) # EXERCICI 2.4
 
 age = age_players_count(basket_players) # EXERCICI 2.5
 print("EDAT | Nº Jugadors")
