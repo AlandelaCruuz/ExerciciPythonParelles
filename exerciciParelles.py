@@ -33,6 +33,11 @@ def transformdata(height, weight) -> list:
     weight = round(float(weight)*0.54 , 2)
     return ([height, weight])
 
+# EXERCICI 1.4  -Transfomar les dades relatives a l'edat de decimals a enters
+def transformage(age) -> int:
+    age = round(float(age))
+    return (age)
+
 def print_all_data():
     for i, row in enumerate(basket_players):
         print(i)
@@ -40,8 +45,20 @@ def print_all_data():
         row[2] = position_dict(row[2])
         row[3] = transformdata(row[3], row[4])[0]
         row[4] = transformdata(row[3], row[4])[1]
-
+        row[5] = transformage(row[5])
         print(row)
 
+# EXERCICI 1.5  - Rep una llista dels jugadors i la guarda en un nou .CSV amb el delimitador '^' utilitzant un Diccionari
+def save_players_list(players_list):
+    mydict = {'Nom' : 'x', 'Equip' : 'x', 'Posicio' : 'x', 'Altura' : 'x', 'Pes' : 'x', 'Edat': 'x' }
+
+    with open('jugadorrs_basket.csv', mode='w', newline='') as csv_file:
+            writer = csv.DictWriter(csv_file, fieldnames=mydict.keys(), delimiter="^")
+            writer.writeheader()
+
+            for row in players_list:
+                data = {'Nom' : row[0], 'Equip' : row[1], 'Posicio' : row[2], 'Altura' : row[3], 'Pes' : row[4], 'Edat': row[5] }
+                writer.writerow(data)
 basket_players = extract_all_tdata()
 print_all_data()
+save_players_list(basket_players)
